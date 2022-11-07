@@ -11,9 +11,8 @@ public class EmployeePayrollDTO {
 
     @Override
     public String toString() {
-        return "EmployeePayrollDTO{" +
+        return "EmployeePayrollDTO : " +
                 "name='" + name + '\'' +
-                ", salary=" + salary +
-                '}';
+                ", salary=" + salary ;
     }
 }
