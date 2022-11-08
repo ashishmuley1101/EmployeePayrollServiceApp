@@ -1,13 +1,23 @@
 package com.bridgelabz.employeepayrollappnew.model;
 
 import com.bridgelabz.employeepayrollappnew.dto.EmployeePayrollDTO;
+import lombok.Data;
+
+import java.time.LocalDate;
+import java.util.List;
 
 //Employee Payroll Data use like Bean
-
-public class EmployeePayrollData {
+// @Data give all methods getter and setter to class
+public @Data class EmployeePayrollData {
     private int employeeId;
     private String name;
     private long salary;
+
+    private String gender;
+    private LocalDate startDate;
+    private String note;
+    private String profilePic;
+    private List<String> departments;
 
     public EmployeePayrollData() {}
 
@@ -16,31 +26,13 @@ public class EmployeePayrollData {
         this.employeeId = empId;
         this.name = employeePayrollDTO.name;
         this.salary = employeePayrollDTO.salary;
+        this.gender=employeePayrollDTO.gender;
+        this.note=employeePayrollDTO.note;
+        this.startDate= employeePayrollDTO.startDate;
+        this.profilePic=employeePayrollDTO.profilePic;
+        this.departments=employeePayrollDTO.departments;
     }
 
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
 
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public long getSalary() {
-        return salary;
-    }
-
-    public void setSalary(long salary) {
-        this.salary = salary;
-    }
 }
