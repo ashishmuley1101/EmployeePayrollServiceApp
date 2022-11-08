@@ -11,7 +11,7 @@ public class EmployeePayrollDTO {
     public String name;
 
     // Validation from user input for salary must be greater then 500
-    @Min(value = 500,message = "Minimum wages should bemore that 500")
+    @Min(value = 500,message = "Minimum wages should greater than 500")
     public long salary;
 
     public EmployeePayrollDTO(String name,long salary){

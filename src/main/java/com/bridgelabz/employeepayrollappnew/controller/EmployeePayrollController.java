@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,6 +30,7 @@ public class EmployeePayrollController {
     }
 
     // Getting employee data using id @GetMapping
+    //@PathVariable for taking the user I/p as employee Id
     @GetMapping("/get/{empId}")
     public ResponseEntity<ResponseDTO> getEmployeePayrollData(@PathVariable("empId") int empId) {
         EmployeePayrollData empPayrollData = null;
@@ -38,17 +40,21 @@ public class EmployeePayrollController {
     }
 
     // Creating the employee data using @PostMapping Method
+    //@Valid for validating the @RequestBody request body which given by the user
+    //@PathVariable for taking the user I/p as employee Id
     @PostMapping("/create")
-    public ResponseEntity<ResponseDTO> createEmployeePayrollData(@RequestBody EmployeePayrollDTO empPayrollDTO) {
+    public ResponseEntity<ResponseDTO> createEmployeePayrollData(@Valid @RequestBody EmployeePayrollDTO empPayrollDTO) {
         EmployeePayrollData empData = null;
         empData = employeePayrollService.createEmployeePayrollData(empPayrollDTO);
         ResponseDTO respDTO = new ResponseDTO("Created Employee Payroll Data Successfully ", empData);
         return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
-
+    //@PathVariable for taking the user I/p as employee Id
     //Updating employee data using @PutMapping
+    //@Valid for validating the @RequestBody request body which given by the user
+    //RequestMapping for getting the user data in the form of query
     @PutMapping("/update/{empId}")
-    public ResponseEntity<ResponseDTO> updateEmployeePayrollData(@PathVariable("empId") int empId, @RequestBody EmployeePayrollDTO empPayrollDTO) {
+    public ResponseEntity<ResponseDTO> updateEmployeePayrollData(@PathVariable("empId") int empId, @Valid @RequestBody EmployeePayrollDTO empPayrollDTO) {
         EmployeePayrollData empData = null;
         empData = employeePayrollService.updateEmployeePayrollData(empId,empPayrollDTO);
         ResponseDTO respDTO = new ResponseDTO("Updated Employee Payroll Data Successfully", empData);
@@ -57,6 +63,7 @@ public class EmployeePayrollController {
 
     //Delete employee data using @DeleteMapping Method
 
+    //@PathVariable for taking the user I/p as employee Id
     @DeleteMapping("/delete/{empId}")
     public ResponseEntity<ResponseDTO> deleteEmployeePayrollData(@PathVariable("empId") int empId) {
         employeePayrollService.deleteEmployeePayrollData(empId);
