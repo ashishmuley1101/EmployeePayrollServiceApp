@@ -1,8 +1,12 @@
 package com.bridgelabz.employeepayrollappnew.dto;
 
 
+import lombok.Data;
+
+
 //Response DTO back to DTO Object
-public class ResponseDTO {
+// @Data - lombak using autogenerate the Getter and Setter Methods
+public @Data class ResponseDTO {
     private String message;
     private Object data;
 
@@ -11,19 +15,4 @@ public class ResponseDTO {
         this.data = data;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
 }
