@@ -3,9 +3,7 @@ package com.bridgelabz.employeepayrollappnew.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.ToString;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import java.util.List;
 
 public @ToString class EmployeePayrollDTO {
 
-    // Validation from user input for name by regex
+    // @Pattern Validation from user input in regex format
     @Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}$",message = "Employee name Invalid")
     public String name;
 
@@ -21,12 +19,21 @@ public @ToString class EmployeePayrollDTO {
     @Min(value = 500,message = "Minimum wages should greater than 500")
     public long salary;
 
+    @Pattern(regexp = "male|female", message = "Gender needs to be male or female")
     public String gender;
 
     //@Json convert the string date into date format
+    //@NotNull giving the message that not null
+    //@NotBlank giving the message that not to be blank
    @JsonFormat(pattern = "dd MMM yyyy")
+   @NotNull(message = "startDate should not be empty..!")
+   @PastOrPresent(message = "startDate should be past or todays's date..!")
     public LocalDate startDate;
+
+   @NotBlank(message = "Note cannnot be empty...! ")
     public String note;
+    @NotBlank(message = "profilePic cannnot be empty...! ")
     public String profilePic;
+    @NotNull(message = "department should not be empty...!")
     public List<String> departments;
 }
