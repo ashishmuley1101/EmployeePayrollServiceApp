@@ -27,12 +27,12 @@ public @ToString class EmployeePayrollDTO {
     //@NotBlank giving the message that not to be blank
    @JsonFormat(pattern = "dd MMM yyyy")
    @NotNull(message = "startDate should not be empty..!")
-   @PastOrPresent(message = "startDate should be past or todays's date..!")
+   @PastOrPresent(message = "startDate should be past or today's date..!")
     public LocalDate startDate;
 
-   @NotBlank(message = "Note cannnot be empty...! ")
+   @NotBlank(message = "Note cannot be empty...! ")
     public String note;
-    @NotBlank(message = "profilePic cannnot be empty...! ")
+    @NotBlank(message = "profilePic cannot be empty...! ")
     public String profilePic;
     @NotNull(message = "department should not be empty...!")
     public List<String> departments;
