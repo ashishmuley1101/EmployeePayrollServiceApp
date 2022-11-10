@@ -34,6 +34,13 @@ public class EmployeePayrollService implements IEmployeePayrollService{
 
     }
 
+
+    @Override
+    public List<EmployeePayrollData> getEmployeePayrollDataByDepartment(String department) {
+        return employeePayrollRepository.findEmployeesByDepartment(department);
+    }
+
+
     // Not Created with Id its Auto Created by DB
     @Override
     public EmployeePayrollData createEmployeePayrollData(EmployeePayrollDTO empPayrollDTO) {
@@ -49,6 +56,8 @@ public class EmployeePayrollService implements IEmployeePayrollService{
         employeePayrollData.updateEmployeePayrollData(empPayrollDTO);
         return employeePayrollRepository.save(employeePayrollData);
     }
+
+
 
     @Override
     public void deleteEmployeePayrollData(int empId) {

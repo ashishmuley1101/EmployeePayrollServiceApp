@@ -14,6 +14,8 @@ public interface IEmployeePayrollService {
 
     EmployeePayrollData updateEmployeePayrollData(int empId,EmployeePayrollDTO empPayrollDTO);
 
+    //Native query get employee details from department.
+    List<EmployeePayrollData> getEmployeePayrollDataByDepartment(String department);
 
     void deleteEmployeePayrollData(int empId);
 

@@ -41,6 +41,15 @@ public class EmployeePayrollController {
         return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
 
+    //getting all data with the @PathVariable department
+    @GetMapping("/department/{department}")
+    public ResponseEntity<ResponseDTO> getDepartmentById(@PathVariable("department") String department){
+        List<EmployeePayrollData> empDataList = null;
+        empDataList =employeePayrollService.getEmployeePayrollDataByDepartment(department);
+        ResponseDTO respDTO = new ResponseDTO("Get call success", empDataList);
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+    }
+
     // Creating the employee data using @PostMapping Method
     //@Valid for validating the @RequestBody request body which given by the user
     //@PathVariable for taking the user I/p as employee Id
