@@ -2,10 +2,11 @@ package com.bridgelabz.employeepayrollappnew.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.ToString;
-
+import lombok.Data;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
+
 
 //@ToString from lombok lib provide toString() at source time
 
@@ -25,10 +26,10 @@ public @ToString class EmployeePayrollDTO {
     //@Json convert the string date into date format
     //@NotNull giving the message that not null
     //@NotBlank giving the message that not to be blank
-   @JsonFormat(pattern = "dd MMM yyyy")
+    @JsonFormat( pattern = "dd MMM yyy")
    @NotNull(message = "startDate should not be empty..!")
    @PastOrPresent(message = "startDate should be past or today's date..!")
-    public LocalDate startDate;
+    public  LocalDate startDate;
 
    @NotBlank(message = "Note cannot be empty...! ")
     public String note;

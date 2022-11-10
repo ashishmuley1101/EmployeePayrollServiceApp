@@ -13,7 +13,7 @@ import java.util.List;
 //@Entity for generating in DB for particular class
 //@Table for creating table in DB
 @Entity
-@Table(name = "employee_payroll")
+@Table(name = "employee_payrolll")
 public @Data class EmployeePayrollData {
 
     //@Id for Primary Key for table with variable employeeId
@@ -30,7 +30,7 @@ public @Data class EmployeePayrollData {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "start_date")
+    @Column(name = "start_da")
     private LocalDate startDate;
 
     @Column(name = "note")
@@ -46,21 +46,22 @@ public @Data class EmployeePayrollData {
     @Column(name = "department")
     private List<String> departments;
 
-    public EmployeePayrollData() {}
+
 
     // employeeId not creating by user it Auto created by DB
-    public EmployeePayrollData(EmployeePayrollDTO employeePayrollDTO)
+    public  EmployeePayrollData(){ }
+    public EmployeePayrollData( EmployeePayrollDTO employeePayrollDTO)
     {
-      //  this.employeeId = empId;
+        this.updateEmployeePayrollData(employeePayrollDTO);
+    }
+    public void updateEmployeePayrollData(EmployeePayrollDTO employeePayrollDTO){
         this.name = employeePayrollDTO.name;
         this.salary = employeePayrollDTO.salary;
-        this.gender=employeePayrollDTO.gender;
-        this.note=employeePayrollDTO.note;
-        this.startDate= employeePayrollDTO.startDate;
-        this.profilePic=employeePayrollDTO.profilePic;
-        this.departments=employeePayrollDTO.departments;
+        this.gender = employeePayrollDTO.gender;
+        this.note = employeePayrollDTO.note;
+        this.startDate = employeePayrollDTO.startDate;
+        this.profilePic = employeePayrollDTO.profilePic;
+        this.departments = employeePayrollDTO.departments;
     }
-
-
 
 }
