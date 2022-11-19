@@ -10,6 +10,7 @@ import java.util.List;
 
 //@ToString from lombok lib provide toString() at source time
 
+@Data
 public @ToString class EmployeePayrollDTO {
 
     // @Pattern Validation from user input in regex format

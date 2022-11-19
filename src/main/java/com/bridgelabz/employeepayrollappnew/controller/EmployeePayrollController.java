@@ -5,22 +5,32 @@ import com.bridgelabz.employeepayrollappnew.dto.EmployeePayrollDTO;
 import com.bridgelabz.employeepayrollappnew.dto.ResponseDTO;
 import com.bridgelabz.employeepayrollappnew.model.EmployeePayrollData;
 import com.bridgelabz.employeepayrollappnew.service.IEmployeePayrollService;
+import com.bridgelabz.employeepayrollappnew.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employeepayrollservice")
+//@RequestMapping("/employeepayrollservice")
 @Slf4j
 public class EmployeePayrollController {
 
     @Autowired
     private IEmployeePayrollService employeePayrollService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     // Getting employee data in the form of JSON
     @RequestMapping(value = {"", "/", "/get"})
@@ -81,6 +91,20 @@ public class EmployeePayrollController {
         employeePayrollService.deleteEmployeePayrollData(empId);
         ResponseDTO respDTO = new ResponseDTO("Deleted Successfully", "Deleted id: " + empId);
         return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/authenticate")
+    public String generateToken(@RequestBody EmployeePayrollDTO employeePayrollDTO) throws Exception {
+        try {
+            this.authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(employeePayrollDTO.getName(), employeePayrollDTO.getGender())
+            );
+        } catch (UsernameNotFoundException e) {
+            e.printStackTrace();
+            throw new Exception("Inavalid username/gender...!!");
+        }
+        // Generate token for by name using jwtUtil.generateToken().
+        return jwtUtil.generateToken(employeePayrollDTO.getName());
     }
 
 }

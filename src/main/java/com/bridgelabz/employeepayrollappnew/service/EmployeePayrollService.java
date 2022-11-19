@@ -5,7 +5,11 @@ import com.bridgelabz.employeepayrollappnew.exception.EmployeePayrollException;
 import com.bridgelabz.employeepayrollappnew.model.EmployeePayrollData;
 import com.bridgelabz.employeepayrollappnew.repository.IEmployeePayrollRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,11 +17,15 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class EmployeePayrollService implements IEmployeePayrollService{
+public class EmployeePayrollService implements IEmployeePayrollService, UserDetailsService {
 
     //@Autowired IEmployeePayrollService in service class
     @Autowired
     private IEmployeePayrollRepository employeePayrollRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
     private List<EmployeePayrollData> employeePayrollList = new ArrayList<>();
 
     @Override
@@ -63,5 +71,21 @@ public class EmployeePayrollService implements IEmployeePayrollService{
     public void deleteEmployeePayrollData(int empId) {
         EmployeePayrollData employeePayrollData=this.getEmployeePayrollDataById(empId);
         employeePayrollRepository.delete(employeePayrollData);
+    }
+
+    //Override loadUserByUsername(name) from UserDetailsService header passes it will go in DB and fetch the user Object which provided
+    @Override
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+
+        // fetch user name and city from DB by employeePayrollRepo
+
+        EmployeePayrollData addressBookData = employeePayrollRepository.findByName(name);
+
+        if (addressBookData == null){
+            throw new UsernameNotFoundException("Bad credentials");
+        }else {
+            // map the name and city from DB to Spring Framework security for checking the user object valid or not.
+            return new org.springframework.security.core.userdetails.User(addressBookData.getName(), addressBookData.getGender(), new ArrayList<>());
+        }
     }
 }
